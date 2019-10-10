@@ -1,0 +1,13 @@
+{
+  "StoreService": {
+    "host": "localhost",
+    "port": 8081,
+    "path": {
+      "branchInfo": "/api/bank/branch/code",
+      "login": "/api/system/account/loginBalance",
+      "bank": "/api/bank",
+      "branch": "/api/bank/branch",
+      "staffPost": "/api/bank/branch/staffPost"
+    }
+  }
+}

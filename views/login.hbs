@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{title}}</title>
+  <link rel='stylesheet' href='/stylesheets/bootstrap-3.3.7/bootstrap.min.css' />
+  <link rel='stylesheet' href='/stylesheets/font-awesome-3.2.1/font-awesome.min.css' />
+  <link rel="stylesheet" href="/stylesheets/googleapis/googleapis.css" />
+  <link rel="stylesheet" href="/stylesheets/view/login.css" />
+  <link rel="stylesheet" href="/stylesheets/space.css" />
+  <script src="/javascripts/jquery-2.2.0/jquery-2.2.0.min.js"></script>
+  <script src="/javascripts/bootstrap-3.3.7/bootstrap.min.js"></script>
+  <script src="/javascripts/angular-1.7.8/angular.min.js"></script>
+  <script src="/javascripts/bootbox/bootbox.min.js"></script>
+  <script src="/javascripts/view/common.js"></script>
+  <script src="/javascripts/view/login.js"></script>
+</head>
+
+<body class="login-layout" ng-app="myApp" ng-controller="myCtrl" ng-style="model.branchBackImageStyle">
+<div class="main-content" >
+  <div class="login-container">
+    <h2>银行网点理财业务分流系统</h2>
+    <div class="space-6"></div>
+    <div class="widget-body">
+      <h4>
+        <i class="icon-coffee"></i>
+        请输入您的登陆信息
+      </h4>
+      <form name="myForm" novalidate class="form-horizontal">
+        <div class="form-group">
+          <div class="col-sm-12">
+            <input type="text" name="account" class="form-control" maxlength="15" ng-model="model.account" placeholder="请输入帐号">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12">
+            <input type="password" name="password" class="form-control" maxlength="15" ng-model="model.password" placeholder="请输入密码">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12">
+            <select class="form-control" name="bank" ng-change="onBankChange()" ng-model="model.selectedBank" ng-options="bank as bank.bankName for bank in model.bankList"></select>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12">
+            <select class="form-control" name="branch" ng-change="onBranchChange()" ng-model="model.selectedBranch" ng-options="branch as branch.branchName for branch in model.branchList"></select>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12">
+            <select class="form-control" name="staffPost" ng-model="model.selectedStaffPost" ng-options="staffPost as staffPost.staffPostName for staffPost in model.staffPostList"></select>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-6">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" checked="checked">
+                <span>记住我</span>
+              </label>
+            </div>
+
+          </div>
+          <div class="col-sm-6">
+            <button type="button" class="btn btn-primary btn-block btn-login pull-right" ng-click="onLogin()"
+                    ng-disabled="myForm.account.$pristine
+                                || myForm.password.$pristine
+                                || myForm.account.$dirty && myForm.account.$invalid
+                                || myForm.password.$dirty && myForm.password.$invalid
+                                || model.selectedBank.bankCode === 0
+                                || model.selectedBranch.branchCode === 0
+                                || model.selectedStaffPost.staffPostID === 0">
+              <i class="ace-icon icon-key"></i>
+              登陆
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

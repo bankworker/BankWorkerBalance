@@ -1,0 +1,96 @@
+.main-container{
+  background: url("../../images/bg.jpeg") no-repeat center center fixed;
+  background-size: cover;
+  padding: 35px;
+}
+.financial-manager{
+  text-align: center;
+}
+.financial-manager-name{
+  font-size: 24px;
+}
+.btn-option{
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  font-size: 18px;
+  font-weight: bold;
+}
+.btn-on-duty{
+  background-color: #2125ae;
+  color: #ffffff;
+}
+.btn-off-duty{
+  background-color: #b3b3b3;
+  color: #5f5858;
+}
+
+.btn-free{
+  background-color: #4cae4c;
+  border: 1px solid #4cae4c;
+  color: #ffffff;
+}
+.btn-busy{
+  background-color: #d80e0e;
+  border: 1px solid #d80e0e;
+  color: #ffffff;
+}
+.btn-leave{
+  background-color: #ed7d31;
+  border: 1px solid #ed7d31;
+  color: #ffffff;
+}
+.bar-option{
+  padding-left: 55px;
+  padding-top: 30px;
+}
+.bar-option .lcs_wrap {
+  margin-right: 60px;
+}
+.work-status{
+  border-radius: 15px;
+  width: 60%;
+  margin: 0 auto;
+}
+.bar-option button {
+  margin-right: 40px;
+}
+.table-responsive{
+  height: 420px;
+  overflow: auto;
+}
+.table-responsive table tr{
+  height: 47px;
+  background-color: #ffffff;
+}
+table tbody {
+  display: block;
+  height: 312px;
+  overflow-y: scroll;
+}
+
+table thead,
+tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+table td{
+  vertical-align: middle !important;
+}
+table th{
+  vertical-align: middle !important;
+}
+.table-responsive .success{
+  color: #328232;
+}
+.table-responsive .active{
+  color: #9c9a9a;
+}
+.table-responsive .danger{
+  color: #a94442;
+}
+.table-responsive .info{
+  color: #0e71d2;
+}

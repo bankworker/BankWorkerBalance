@@ -1,0 +1,40 @@
+.header-img{
+  width: 375px;
+}
+.login-layout{
+  background: url("../../images/bg.jpeg") no-repeat center center fixed;
+  background-size: 100%;
+}
+.main-content{
+  width: 450px;
+  background-color: #ffffff;
+  margin: 160px auto 0;
+  opacity:0.9;
+  padding: 15px;
+}
+.login-container h2 {
+  text-align: center;
+  color: #478fca;
+}
+.btn-login {
+  width: 80%;
+}
+.widget-body{
+  width: 350px;
+  margin: 0 auto;
+}
+.widget-body h4{
+  border-bottom: 1px solid #d5e3ef;
+  line-height: 28px;
+  margin-bottom: 16px;
+  margin-top: 18px;
+  padding-bottom: 4px;
+  color: #478fca;
+  font-weight: lighter;
+}
+.widget-body h4 i{
+  color: green;
+}
+.pull-right{
+  float: right;
+}

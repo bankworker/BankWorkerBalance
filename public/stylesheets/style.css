@@ -1,8 +1,239 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
+.full-height{
+  height: 100%;
+}
+.no-padding{
+  padding: 0;
+}
+.options-bar{
+  position: absolute;
+  /*left: 15%;*/
+  bottom: 20px;
+  z-index: 10;
+  padding-top: 20px;
+  /*padding-bottom: 20px;*/
+  color: #8e8e8e;
+  text-align: center;
+  /*text-shadow: 0 1px 2px rgba(0,0,0,.6);*/
+  font-size: 18px;
+}
+.options-bar ul {
+  list-style: none;
+}
+.options-bar ul li {
+  border: 1px solid #c0c0c0;
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  padding-top: 15px;
+  border-radius: 10px;
+  background-color: #f5f5f5;
+}
+.bank-logo img{
+  width: 80%;
+  margin: 0 auto;
+}
+.branch-logo img{
+  width: 60%;
+  margin: 0 auto;
+}
+/*.space-bigger-1{*/
+/*  margin: 35px;*/
+/*}*/
+/*.space-bigger-2{*/
+/*  margin: 70px;*/
+/*}*/
 
-a {
-  color: #00B7FF;
-}
+/*.space-normal-1{*/
+/*  margin: 15px;*/
+/*}*/
+/*.space-normal-2{*/
+/*  margin: 30px;*/
+/*}*/
+/*.space-normal-3{*/
+/*  margin: 45px;*/
+/*}*/
+/*.space-normal-4{*/
+/*  margin: 60px;*/
+/*}*/
+/*.logo-head{*/
+/*  width: 200px;*/
+/*  margin: 35px auto 0;*/
+/*}*/
+
+/*.logo-branch{*/
+/*  width: 150px;*/
+/*  margin: 125px auto 0;*/
+/*}*/
+
+/*.login-content{*/
+/*  width: 350px;*/
+/*  margin: 0 auto;*/
+/*}*/
+/*.login-header{*/
+/*  text-align: center;*/
+/*  margin-top: 60px;*/
+/*  margin-bottom: 50px;*/
+/*}*/
+/*.btn-login{*/
+/*  margin-top: 35px;*/
+/*}*/
+/*.financial-manager{*/
+/*  text-align: center;*/
+/*}*/
+/*.financial-manager-name{*/
+/*  font-size: 24px;*/
+/*}*/
+/*.financial-manager-title{*/
+/*  font-size: 18px;*/
+/*}*/
+/*.btn-option{*/
+/*  width: 120px;*/
+/*  height: 120px;*/
+/*  border-radius: 50%;*/
+/*  font-size: 26px;*/
+/*  font-weight: bold;*/
+/*}*/
+/*.btn-on-duty{*/
+/*  background-color: #2125ae;*/
+/*  color: #ffffff;*/
+/*}*/
+/*.btn-off-duty{*/
+/*  background-color: #b3b3b3;*/
+/*  color: #5f5858;*/
+/*}*/
+
+/*.btn-free{*/
+/*  background-color: #4cae4c;*/
+/*  color: #ffffff;*/
+/*}*/
+/*.btn-busy{*/
+/*  background-color: #d80e0e;*/
+/*  color: #ffffff;*/
+/*}*/
+/*.btn-leave{*/
+/*  background-color: #ed7d31;*/
+/*  color: #ffffff;*/
+/*}*/
+/*.bar-option{*/
+/*  padding-left: 55px;*/
+/*  padding-top: 30px;*/
+/*}*/
+/*.bar-option .lcs_wrap {*/
+/*  margin-right: 60px;*/
+/*}*/
+/*.work-status{*/
+/*  border-radius: 15px;*/
+/*  width: 60%;*/
+/*  margin: 0 auto;*/
+/*}*/
+/*.bar-option button {*/
+/*  margin-right: 60px;*/
+/*}*/
+/*.table-responsive table tr{*/
+/*  height: 47px;*/
+/*}*/
+/*table td{*/
+/*  vertical-align: middle !important;*/
+/*}*/
+/*table th{*/
+/*  vertical-align: middle !important;*/
+/*}*/
+/*.table-responsive .success{*/
+/*  color: #328232;*/
+/*}*/
+/*.table-responsive .active{*/
+/*  color: #9c9a9a;*/
+/*}*/
+/*.table-responsive .danger{*/
+/*  color: #a94442;*/
+/*}*/
+/*.table-responsive .info{*/
+/*  color: #0e71d2;*/
+/*}*/
+/*.lobby-view{*/
+/*  margin-top: 10px;*/
+/*}*/
+/*.lobby-view img{*/
+/*  width: 80%;*/
+/*  margin: 0 auto;*/
+/*}*/
+/*.filter-bars button{*/
+/*  width: 80px;*/
+/*}*/
+/*.filter-bars .badge{*/
+/*  background-color: #d80e0e;*/
+/*  color: #ffffff;*/
+/*}*/
+/*.session-body {*/
+/*  text-align: center;*/
+/*}*/
+/*.session-body img{*/
+/*  width: 150px;*/
+/*  margin: 0 auto;*/
+/*}*/
+/*.btn-done{*/
+/*  width: 80px;*/
+/*}*/
+/*.btn-call-back{*/
+/*  width: 80px;*/
+/*}*/
+/*.container-header{*/
+/*  position: absolute;*/
+/*  left: -200px;*/
+/*  bottom: 25px;*/
+/*}*/
+/*.container-header button{*/
+/*  float: right;*/
+/*  background-color: #efefef;*/
+/*  color: #aba8a8;*/
+/*  border: none;*/
+/*}*/
+
+/*.financial table tbody {*/
+/*  display: block;*/
+/*  height: 360px;*/
+/*  overflow-y: scroll;*/
+/*}*/
+
+/*.lobby table tbody {*/
+/*  display: block;*/
+/*  height: 287px;*/
+/*  overflow-y: scroll;*/
+/*}*/
+/*.dialog-resume img{*/
+/*  height: 80%;*/
+/*}*/
+/*#dialog-goBack .modal-body{*/
+/*  padding-left: 0;*/
+/*}*/
+/*#dialog-goBack ul{*/
+/*  list-style-type: none;*/
+/*  margin-left: -15px;*/
+/*}*/
+/*#dialog-goBack ul li:not(:last-child){*/
+/*  margin-bottom: 10px;*/
+/*  padding: 12px;*/
+/*  border: 1px solid #cccccc;*/
+/*}*/
+/*.choose{*/
+/*  background-color: #dff0d8;*/
+/*  color: #328232;*/
+/*  border: 1px solid #328232 !important;*/
+/*}*/
+/*#dialog-goBack ul li .active{*/
+/*  background-color: #cccccc;*/
+/*}*/
+/*table thead,*/
+/*tbody tr {*/
+/*  display: table;*/
+/*  width: 100%;*/
+/*  table-layout: fixed;*/
+/*}*/
+/*.bar-option .ng-show {*/
+/*  animation: 0.5s myChange;*/
+/*}*/

@@ -1,10 +1,40 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>{{title}}</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    {{{body}}}
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/stylesheets/bootstrap-3.3.7/bootstrap.min.css">
+  <link rel='stylesheet' href='/stylesheets/space.css' />
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <script src="/javascripts/jquery-2.2.0/jquery-2.2.0.min.js"></script>
+  <script src="/javascripts/bootstrap-3.3.7/bootstrap.min.js"></script>
+  <script src="/javascripts/angular-1.7.8/angular.min.js"></script>
+  <script src="/javascripts/view/common.js"></script>
+  <title>理财业务分流-{{title}}</title>
+</head>
+<body>
+<div class="container-fluid full-height">
+  <div class="row full-height">
+    <div class="col-sm-2 no-padding full-height">
+      <div class="space-30"></div>
+      <div class="bank-logo">
+        <img src="http://111.20.85.6:3003/images/logo_head.jpg" class="img-responsive">
+      </div>
+      <div class="space-30"></div>
+      <div class="branch-logo">
+        <img src="http://111.20.85.6:3003/images/logo_branch.jpg" class="img-responsive">
+      </div>
+      <div class="options-bar">
+        <ul>
+          <li ng-click="onSignOut()">下班</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-sm-10 no-padding full-height">
+      {{{body}}}
+    </div>
+  </div>
+</div>
+
+</body>
 </html>

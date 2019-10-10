@@ -1,0 +1,381 @@
+<link rel='stylesheet' href='/stylesheets/view/lobby.css' />
+<script src="/javascripts/view/lobby.js"></script>
+<div class="main-container full-height">
+
+  <div class="row financial-list">
+    <div class="col-sm-12 no-padding">
+      <ul>
+        <li>
+          <img src="/images/郭晓琪.jpg" class="img-circle img-responsive">
+          <p class="financial-manager-name">姓名</p>
+          <p class="financial-manager-position">岗位</p>
+          <p class="work-status" ng-class="{'btn-off-duty':status == 4,'btn-on-duty':status == 0,'btn-free':status == 1,'btn-busy':status == 2,'btn-leave':status == 3}">当前状态</p>
+        </li>
+        <li>
+          <img src="/images/郭晓琪.jpg" class="img-circle img-responsive">
+          <p class="financial-manager-name">姓名</p>
+          <p class="financial-manager-position">岗位</p>
+          <p class="work-status" ng-class="{'btn-off-duty':status == 4,'btn-on-duty':status == 0,'btn-free':status == 1,'btn-busy':status == 2,'btn-leave':status == 3}">当前状态</p>
+        </li>
+        <li>
+          <img src="/images/郭晓琪.jpg" class="img-circle img-responsive">
+          <p class="financial-manager-name">姓名</p>
+          <p class="financial-manager-position">岗位</p>
+          <p class="work-status" ng-class="{'btn-off-duty':status == 4,'btn-on-duty':status == 0,'btn-free':status == 1,'btn-busy':status == 2,'btn-leave':status == 3}">当前状态</p>
+        </li>
+        <li>
+          <img src="/images/郭晓琪.jpg" class="img-circle img-responsive">
+          <p class="financial-manager-name">姓名</p>
+          <p class="financial-manager-position">岗位</p>
+          <p class="work-status" ng-class="{'btn-off-duty':status == 4,'btn-on-duty':status == 0,'btn-free':status == 1,'btn-busy':status == 2,'btn-leave':status == 3}">当前状态</p>
+        </li>
+        <li>
+          <img src="/images/郭晓琪.jpg" class="img-circle img-responsive">
+          <p class="financial-manager-name">姓名</p>
+          <p class="financial-manager-position">岗位</p>
+          <p class="work-status" ng-class="{'btn-off-duty':status == 4,'btn-on-duty':status == 0,'btn-free':status == 1,'btn-busy':status == 2,'btn-leave':status == 3}">当前状态</p>
+        </li>
+        <li>
+          <img src="/images/郭晓琪.jpg" class="img-circle img-responsive">
+          <p class="financial-manager-name">姓名</p>
+          <p class="financial-manager-position">岗位</p>
+          <p class="work-status" ng-class="{'btn-off-duty':status == 4,'btn-on-duty':status == 0,'btn-free':status == 1,'btn-busy':status == 2,'btn-leave':status == 3}">当前状态</p>
+        </li>
+        <li>
+          <img src="/images/郭晓琪.jpg" class="img-circle img-responsive">
+          <p class="financial-manager-name">姓名</p>
+          <p class="financial-manager-position">岗位</p>
+          <p class="work-status" ng-class="{'btn-off-duty':status == 4,'btn-on-duty':status == 0,'btn-free':status == 1,'btn-busy':status == 2,'btn-leave':status == 3}">当前状态</p>
+        </li>
+        <li>
+          <img src="/images/郭晓琪.jpg" class="img-circle img-responsive">
+          <p class="financial-manager-name">姓名</p>
+          <p class="financial-manager-position">岗位</p>
+          <p class="work-status" ng-class="{'btn-off-duty':status == 4,'btn-on-duty':status == 0,'btn-free':status == 1,'btn-busy':status == 2,'btn-leave':status == 3}">当前状态</p>
+        </li>
+        <li>
+          <img src="/images/郭晓琪.jpg" class="img-circle img-responsive">
+          <p class="financial-manager-name">姓名</p>
+          <p class="financial-manager-position">岗位</p>
+          <p class="work-status" ng-class="{'btn-off-duty':status == 4,'btn-on-duty':status == 0,'btn-free':status == 1,'btn-busy':status == 2,'btn-leave':status == 3}">当前状态</p>
+        </li>
+        <li>
+          <img src="/images/郭晓琪.jpg" class="img-circle img-responsive">
+          <p class="financial-manager-name">姓名</p>
+          <p class="financial-manager-position">岗位</p>
+          <p class="work-status" ng-class="{'btn-off-duty':status == 4,'btn-on-duty':status == 0,'btn-free':status == 1,'btn-busy':status == 2,'btn-leave':status == 3}">当前状态</p>
+        </li>
+        <li>
+          <img src="/images/郭晓琪.jpg" class="img-circle img-responsive">
+          <p class="financial-manager-name">姓名</p>
+          <p class="financial-manager-position">岗位</p>
+          <p class="work-status" ng-class="{'btn-off-duty':status == 4,'btn-on-duty':status == 0,'btn-free':status == 1,'btn-busy':status == 2,'btn-leave':status == 3}">当前状态</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="space-4"></div>
+  <div class="row filter-bars">
+    <div class="col-md-12 filter-bars">
+      <button type="button" class="btn" ng-class="{'btn-primary':filterStatus == '', 'btn-default':filterStatus != ''}" ng-click="onFilter('')">全部</button>
+      <button type="button" class="btn" ng-class="{'btn-primary':filterStatus == '0',  'btn-default':filterStatus != '0'}" ng-click="onFilter('0')">等待中</button>
+      <button type="button" class="btn" ng-class="{'btn-primary':filterStatus == '1',  'btn-default':filterStatus != '1'}" ng-click="onFilter('1')">办理中</button>
+      <button type="button" class="btn" ng-class="{'btn-primary':filterStatus == '4',  'btn-default':filterStatus != '4'}" ng-click="onFilter('4')">
+        回呼
+        <span class="badge"></span>
+      </button>
+      <button type="button" class="btn" ng-class="{'btn-primary':filterStatus == '3',  'btn-default':filterStatus != '3'}" ng-click="onFilter('3')">完结</button>
+    </div>
+  </div>
+  <div class="space-4"></div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>发起人</th>
+            <th>发起时间</th>
+            <th>承接人</th>
+            <th>回复时间</th>
+            <th>完成时间</th>
+            <th>业务状态</th>
+            <th>办理结果</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="data in dataList" ng-class="{'success': data.businessStatus == 1,'danger': data.businessStatus == 2,'active': data.businessStatus == 3,'warning': data.businessStatus == 4}">
+            <!--                <td>\{{ data.sendUserName }}</td>-->
+            <!--                <td>\{{ data.sendTime }}</td>-->
+            <!--                <td>\{{ data.receiveUserName }}</td>-->
+            <!--                <td>\{{ data.receiveTime }}</td>-->
+            <!--                <td>-->
+            <!--                  <span ng-if="data.businessStatus==0">等待回复</span>-->
+            <!--                  <span ng-if="data.businessStatus==1 || data.businessStatus==4">办理中</span>-->
+            <!--                  <span ng-if="data.businessStatus==2">拒绝</span>-->
+            <!--                  <span ng-if="data.businessStatus==3">完成</span>-->
+            <!--                </td>-->
+            <!--                <td>-->
+            <!--                  <button type="button" class="btn btn-success btn-done" ng-if="data.businessStatus==1" ng-click="onComplete(data.businessID)">完结</button>-->
+            <!--                  <button type="button" class="btn btn-danger btn-call-back" ng-if="data.businessStatus==1" ng-click="onGoBack(data.businessID)">回呼</button>-->
+            <!--                  <span ng-if="data.businessStatus!=1">\{{ data.businessStatusText }}</span>-->
+            <!--                </td>-->
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              等待回复
+            </td>
+            <td>
+              <button type="button" class="btn btn-sm btn-success btn-done" ng-if="data.businessStatus==1" ng-click="onComplete(data.businessID)">完结</button>
+              <button type="button" class="btn btn-sm btn-danger btn-call-back" ng-if="data.businessStatus==1" ng-click="onGoBack(data.businessID)">回呼</button>
+            </td>
+          </tr>
+          <tr ng-repeat="data in dataList" ng-class="{'success': data.businessStatus == 1,'danger': data.businessStatus == 2,'active': data.businessStatus == 3,'warning': data.businessStatus == 4}">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              等待回复
+            </td>
+            <td>
+              <button type="button" class="btn btn-sm btn-success btn-done" ng-if="data.businessStatus==1" ng-click="onComplete(data.businessID)">完结</button>
+              <button type="button" class="btn btn-sm btn-danger btn-call-back" ng-if="data.businessStatus==1" ng-click="onGoBack(data.businessID)">回呼</button>
+            </td>
+          </tr>
+          <tr ng-repeat="data in dataList" ng-class="{'success': data.businessStatus == 1,'danger': data.businessStatus == 2,'active': data.businessStatus == 3,'warning': data.businessStatus == 4}">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              等待回复
+            </td>
+            <td>
+              <button type="button" class="btn btn-sm btn-success btn-done" ng-if="data.businessStatus==1" ng-click="onComplete(data.businessID)">完结</button>
+              <button type="button" class="btn btn-sm btn-danger btn-call-back" ng-if="data.businessStatus==1" ng-click="onGoBack(data.businessID)">回呼</button>
+            </td>
+          </tr>
+          <tr ng-repeat="data in dataList" ng-class="{'success': data.businessStatus == 1,'danger': data.businessStatus == 2,'active': data.businessStatus == 3,'warning': data.businessStatus == 4}">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              等待回复
+            </td>
+            <td>
+              <button type="button" class="btn btn-sm btn-success btn-done" ng-if="data.businessStatus==1" ng-click="onComplete(data.businessID)">完结</button>
+              <button type="button" class="btn btn-sm btn-danger btn-call-back" ng-if="data.businessStatus==1" ng-click="onGoBack(data.businessID)">回呼</button>
+            </td>
+          </tr>
+          <tr ng-repeat="data in dataList" ng-class="{'success': data.businessStatus == 1,'danger': data.businessStatus == 2,'active': data.businessStatus == 3,'warning': data.businessStatus == 4}">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              等待回复
+            </td>
+            <td>
+              <button type="button" class="btn btn-sm btn-success btn-done" ng-if="data.businessStatus==1" ng-click="onComplete(data.businessID)">完结</button>
+              <button type="button" class="btn btn-sm btn-danger btn-call-back" ng-if="data.businessStatus==1" ng-click="onGoBack(data.businessID)">回呼</button>
+            </td>
+          </tr>
+          <tr ng-repeat="data in dataList" ng-class="{'success': data.businessStatus == 1,'danger': data.businessStatus == 2,'active': data.businessStatus == 3,'warning': data.businessStatus == 4}">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              等待回复
+            </td>
+            <td>
+              <button type="button" class="btn btn-sm btn-success btn-done" ng-if="data.businessStatus==1" ng-click="onComplete(data.businessID)">完结</button>
+              <button type="button" class="btn btn-sm btn-danger btn-call-back" ng-if="data.businessStatus==1" ng-click="onGoBack(data.businessID)">回呼</button>
+            </td>
+          </tr>
+          <tr ng-repeat="data in dataList" ng-class="{'success': data.businessStatus == 1,'danger': data.businessStatus == 2,'active': data.businessStatus == 3,'warning': data.businessStatus == 4}">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              等待回复
+            </td>
+            <td>
+              <button type="button" class="btn btn-sm btn-success btn-done" ng-if="data.businessStatus==1" ng-click="onComplete(data.businessID)">完结</button>
+              <button type="button" class="btn btn-sm btn-danger btn-call-back" ng-if="data.businessStatus==1" ng-click="onGoBack(data.businessID)">回呼</button>
+            </td>
+          </tr>
+          <tr ng-repeat="data in dataList" ng-class="{'success': data.businessStatus == 1,'danger': data.businessStatus == 2,'active': data.businessStatus == 3,'warning': data.businessStatus == 4}">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              等待回复
+            </td>
+            <td>
+              <button type="button" class="btn btn-sm btn-success btn-done" ng-if="data.businessStatus==1" ng-click="onComplete(data.businessID)">完结</button>
+              <button type="button" class="btn btn-sm btn-danger btn-call-back" ng-if="data.businessStatus==1" ng-click="onGoBack(data.businessID)">回呼</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!--<div class="container lobby" ng-app="myApp" ng-controller="myCtrl">-->
+<!--  <div class="container-header">-->
+<!--    <button type="button" class="btn btn-default" ng-click="onLogout()">-->
+<!--      <span class="glyphicon glyphicon-off"></span>-->
+<!--    </button>-->
+<!--  </div>-->
+<!--  <div class="row financial-manager lobby-view">-->
+<!--    <div class="col-sm-2" ng-repeat="clock in financialClockList">-->
+<!--      <img ng-src="\{{clock.userPhoto}}" class="img-circle img-responsive" ng-click="onShowResume(clock.clockUserID, clock.userName, clock.clockUserStatus, clock.userResume)">-->
+<!--      <div class="space-normal-1"></div>-->
+<!--      <p class="financial-manager-name">\{{clock.userName}}</p>-->
+<!--      <p class="financial-manager-title">\{{clock.userRoleText}}</p>-->
+<!--      <p class="work-status" ng-class="{'btn-off-duty':clock.clockUserStatus == 4,'btn-on-duty':clock.clockUserStatus == 0,'btn-free':clock.clockUserStatus == 1,'btn-busy':clock.clockUserStatus == 2,'btn-leave':clock.clockUserStatus == 3}">\{{clock.clockUserStatusText}}</p>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="space-bigger-1"></div>-->
+<!--  <div class="row">-->
+<!--    <div class="col-md-12 filter-bars">-->
+<!--      <button type="button" class="btn" ng-class="{'btn-primary':filterStatus == '', 'btn-default':filterStatus != ''}" ng-click="onFilter('')">全部</button>-->
+<!--      <button type="button" class="btn" ng-class="{'btn-primary':filterStatus == '0',  'btn-default':filterStatus != '0'}" ng-click="onFilter('0')">等待中</button>-->
+<!--      <button type="button" class="btn" ng-class="{'btn-primary':filterStatus == '1',  'btn-default':filterStatus != '1'}" ng-click="onFilter('1')">办理中</button>-->
+<!--      <button type="button" class="btn" ng-class="{'btn-primary':filterStatus == '4',  'btn-default':filterStatus != '4'}" ng-click="onFilter('4')">-->
+<!--        回呼-->
+<!--        <span class="badge">\{{callBackCount}}</span>-->
+<!--      </button>-->
+<!--      <button type="button" class="btn" ng-class="{'btn-primary':filterStatus == '3',  'btn-default':filterStatus != '3'}" ng-click="onFilter('3')">完结</button>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="space-normal-1"></div>-->
+<!--  <div class="row">-->
+<!--    <div class="col-sm-12">-->
+<!--      <div class="table-responsive">-->
+<!--        <table class="table table-bordered">-->
+<!--          <thead>-->
+<!--            <tr>-->
+<!--              <th>发起人</th>-->
+<!--              <th>发起时间</th>-->
+<!--              <th>承接人</th>-->
+<!--              <th>回复时间</th>-->
+<!--              <th>完成时间</th>-->
+<!--              <th>业务状态</th>-->
+<!--              <th>办理结果</th>-->
+<!--            </tr>-->
+<!--          </thead>-->
+<!--          <tbody>-->
+<!--            <tr ng-repeat="data in businessList" ng-class="{'success': data.businessStatus == 1,'danger': data.businessStatus == 2,'active': data.businessStatus == 3,'warning': data.businessStatus == 4}">-->
+<!--              <td>\{{ data.sendUserName }}</td>-->
+<!--              <td>\{{ data.sendTime }}</td>-->
+<!--              <td>\{{ data.receiveUserName }}</td>-->
+<!--              <td>\{{ data.receiveTime }}</td>-->
+<!--              <td>\{{ data.completeTime }}</td>-->
+<!--              <td>-->
+<!--                <span ng-if="data.businessStatus==0">等待回复</span>-->
+<!--                <span ng-if="data.businessStatus==1">办理中</span>-->
+<!--                <span ng-if="data.businessStatus==2">拒绝</span>-->
+<!--                <span ng-if="data.businessStatus==3">完成</span>-->
+<!--                <button type="button" class="btn btn-danger btn-call-back" ng-if="data.businessStatus==4" ng-click="onGoBack(data.callBackID, data.callBackMsg, data.otherCallBackMsg)">查看回呼</button>-->
+<!--              </td>-->
+<!--              <td>-->
+<!--                <button type="button" class="btn btn-success btn-done" ng-if="data.businessStatus==4" ng-click="onComplete(data.businessID)">完结</button>-->
+<!--                <button type="button" class="btn btn-info btn-done" ng-if="data.businessStatus==1" ng-click="onHurry(data.sendUserID, data.receiveUserID, data.businessID)">催促</button>-->
+<!--                <span ng-if="data.businessStatus!=1 && data.businessStatus!=4">\{{ data.businessStatusText }}</span>-->
+<!--              </td>-->
+<!--            </tr>-->
+<!--          </tbody>-->
+<!--        </table>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--  </div>-->
+
+<!--  <div class="modal fade" tabindex="-1" role="dialog" id="dialog-send-business">-->
+<!--    <div class="modal-dialog" role="document">-->
+<!--      <div class="modal-content">-->
+<!--        <div class="modal-header">-->
+<!--          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+<!--          <h4 class="modal-title">发送业务</h4>-->
+<!--        </div>-->
+<!--        <div class="modal-body">-->
+<!--          您正在给<span>\{{currentReceiveUserName}}</span>发送业务接单, 确认发送吗？-->
+<!--          <a href="javascript:;" ng-click="onResume()">查看履历</a>-->
+<!--        </div>-->
+<!--        <div class="modal-footer">-->
+<!--          <button type="button" class="btn btn-lg btn-default" data-dismiss="modal">取消</button>-->
+<!--          <button type="button" class="btn btn-lg btn-primary" ng-click="onSend()">发送</button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="modal fade" tabindex="-1" role="dialog" id="dialog-resume" style="overflow: auto">-->
+<!--    <div class="modal-dialog" role="document">-->
+<!--      <div class="modal-content">-->
+<!--        <div class="modal-header">-->
+<!--          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+<!--          <h4 class="modal-title">理财经理简介</h4>-->
+<!--        </div>-->
+<!--        <div class="modal-body">-->
+<!--          <img ng-src="\{{currentResume}}" class="img-responsive">-->
+<!--        </div>-->
+<!--        <div class="modal-footer">-->
+<!--          <button type="button" class="btn btn-lg btn-default" data-dismiss="modal">取消</button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="modal fade" tabindex="-1" role="dialog" id="dialog-message">-->
+<!--    <div class="modal-dialog" role="document">-->
+<!--      <div class="modal-content">-->
+<!--        <div class="modal-header">-->
+<!--          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+<!--          <h4 class="modal-title">\{{alertTitle}}</h4>-->
+<!--        </div>-->
+<!--        <div class="modal-body">-->
+<!--          <p>\{{alertMessage}}</p>-->
+<!--        </div>-->
+<!--        <div class="modal-footer">-->
+<!--          <button type="button" class="btn btn-lg btn-default" data-dismiss="modal">关闭</button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="modal fade" tabindex="-1" role="dialog" id="dialog-confirm">-->
+<!--    <div class="modal-dialog" role="document">-->
+<!--      <div class="modal-content">-->
+<!--        <div class="modal-header">-->
+<!--          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+<!--          <h4 class="modal-title">\{{modalTitle}}</h4>-->
+<!--        </div>-->
+<!--        <div class="modal-body">-->
+<!--          <p>\{{confirmMessage}}</p>-->
+<!--        </div>-->
+<!--        <div class="modal-footer">-->
+<!--          <button type="button" class="btn btn-lg btn-default" data-dismiss="modal">取消</button>-->
+<!--          <button type="button" class="btn btn-lg btn-primary" ng-click="onConfirm()">确定</button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->

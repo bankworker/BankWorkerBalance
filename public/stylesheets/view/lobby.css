@@ -1,0 +1,86 @@
+.main-container{
+  background: url("../../images/bg.jpeg") no-repeat center center fixed;
+  background-size: cover;
+  padding: 15px 35px;
+}
+
+.financial-list ul{
+  margin-left: -20px;
+  list-style: none;
+  width:100%;
+  display: inline;
+  white-space: nowrap;
+  overflow-x:scroll;
+  float:left;
+  overflow-y:hidden
+}
+.financial-list ul li{
+  width: 14.5%;
+  text-align: center;
+  display:inline-block;
+  color: #fff;
+}
+.financial-list ul li:not(:last-child){
+  margin-right: 1.5rem;
+}
+.financial-manager-name{
+  font-size: 1.5rem;
+}
+.financial-manager-position{
+  font-size: 1.5rem;
+}
+.work-status{
+  padding: 5px;
+  border-radius: 15px;
+  width: 60%;
+  margin: 0 auto;
+  background-color: #2125ae;
+  color: #ffffff;
+}
+.btn-on-duty{
+  background-color: #2125ae;
+  color: #ffffff;
+}
+.btn-off-duty{
+  background-color: #b3b3b3;
+  color: #5f5858;
+}
+.filter-bars button{
+  width: 80px;
+  border: 1px solid red;
+}
+.filter-bars .badge{
+  background-color: #d80e0e;
+  color: #ffffff;
+}
+.table-responsive{
+  height: 420px;
+  overflow: auto;
+}
+.table-responsive table tr{
+  height: 47px;
+  background-color: #ffffff;
+}
+table tbody {
+  display: block;
+  height: 313px;
+  overflow-y: scroll;
+}
+
+table thead,
+tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+table thead {
+  /*width: calc( 100% - 1em)*/
+}
+
+table td{
+  vertical-align: middle !important;
+}
+table th{
+  vertical-align: middle !important;
+}
