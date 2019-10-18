@@ -21,6 +21,8 @@ exports.get = function(host, port, path, callback){
         content = JSON.parse(content);
         return callback({
           'err': false,
+          'code': '0',
+          'msg': '调用成功。',
           'content': content
         });
       });
@@ -69,6 +71,8 @@ exports.post = function(data, host, port, path, callback){
         content = JSON.parse(content);
         return callback({
           'err': false,
+          'code': '0',
+          'msg': '调用成功。',
           'content': content
         });
       });
@@ -118,6 +122,8 @@ exports.put = function(data, host, port, path, callback){
         content = JSON.parse(content);
         return callback({
           'err': false,
+          'code': '0',
+          'msg': '调用成功。',
           'content': content
         });
       });
@@ -162,6 +168,8 @@ exports.delete = function(host, port, path, callback){
         content = JSON.parse(content);
         return callback({
           'err': false,
+          'code': '0',
+          'msg': '调用成功。',
           'content': content
         });
       });

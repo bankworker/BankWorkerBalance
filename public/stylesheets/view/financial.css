@@ -18,10 +18,12 @@
 }
 .btn-on-duty{
   background-color: #2125ae;
+  border: none;
   color: #ffffff;
 }
 .btn-off-duty{
   background-color: #b3b3b3;
+  border: none;
   color: #5f5858;
 }
 
@@ -93,4 +95,37 @@ table th{
 }
 .table-responsive .info{
   color: #0e71d2;
+}
+.table-bordered {
+  border: none;
+}
+.session-body {
+  text-align: center;
+}
+.session-body img{
+  width: 150px;
+  margin: 0 auto;
+}
+#dialog-callBack .modal-body{
+  padding-left: 0;
+}
+#dialog-callBack ul{
+  list-style-type: none;
+  margin-left: -15px;
+}
+#dialog-callBack ul li{
+  padding: 12px;
+  border-top: 1px solid #cccccc;
+  border-left: 1px solid #cccccc;
+  border-right: 1px solid #cccccc;
+}
+#dialog-callBack ul li:last-child{
+  border-bottom: 1px solid #cccccc;
+}
+.choose{
+  background-color: #dff0d8;
+  color: #328232;
+}
+#dialog-callBack ul li .active{
+  background-color: #cccccc;
 }

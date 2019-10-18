@@ -9,7 +9,9 @@
   <script src="/javascripts/jquery-2.2.0/jquery-2.2.0.min.js"></script>
   <script src="/javascripts/bootstrap-3.3.7/bootstrap.min.js"></script>
   <script src="/javascripts/angular-1.7.8/angular.min.js"></script>
+  <script src="/javascripts/bootbox/bootbox.min.js"></script>
   <script src="/javascripts/view/common.js"></script>
+  <script src="/javascripts/view/constants.js"></script>
   <title>理财业务分流-{{title}}</title>
 </head>
 <body>
@@ -26,7 +28,7 @@
       </div>
       <div class="options-bar">
         <ul>
-          <li ng-click="onSignOut()">下班</li>
+          <li id="signOut">下班</li>
         </ul>
       </div>
     </div>
