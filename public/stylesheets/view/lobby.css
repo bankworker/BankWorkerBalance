@@ -38,16 +38,33 @@
   color: #ffffff;
 }
 .btn-on-duty{
-  background-color: #2125ae;
-  color: #ffffff;
+  background-color: #2125ae !important;
+  border: none;
+  color: #ffffff !important;
 }
 .btn-off-duty{
-  background-color: #b3b3b3;
-  color: #5f5858;
+  background-color: #b3b3b3 !important;
+  border: none;
+  color: #5f5858 !important;
+}
+
+.btn-free{
+  background-color: #4cae4c !important;
+  border: 1px solid #4cae4c !important;
+  color: #ffffff;
+}
+.btn-busy{
+  background-color: #d80e0e !important;
+  border: 1px solid #d80e0e;
+  color: #ffffff !important;
+}
+.btn-leave{
+  background-color: #ed7d31 !important;
+  border: 1px solid #ed7d31 !important;
+  color: #ffffff !important;
 }
 .filter-bars button{
   width: 80px;
-  border: 1px solid red;
 }
 .filter-bars .badge{
   background-color: #d80e0e;
@@ -74,13 +91,12 @@ tbody tr {
   table-layout: fixed;
 }
 
-table thead {
-  /*width: calc( 100% - 1em)*/
-}
-
 table td{
   vertical-align: middle !important;
 }
 table th{
   vertical-align: middle !important;
+}
+.table-bordered{
+  border: none;
 }

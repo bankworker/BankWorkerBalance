@@ -1,91 +1,231 @@
 let app = angular.module('myApp', []);
 app.controller('myCtrl', function ($scope, $http) {
-  $scope.financialClockList = [];
-  $scope.businessList = [];
-  $scope.currentReceiveUserID = '';
-  $scope.currentReceiveUserName = '';
-  $scope.currentBusinessID = '';
-  $scope.currentResume = '';
-  $scope.currentClockStatus = '';
-  $scope.alertTitle = '';
-  $scope.alertMessage = '';
-  $scope.modalTitle = '';
-  $scope.confirmMessage = '';
-  $scope.filterStatus = '';
-  $scope.callBackCount = 0;
-  $scope.intervalObj = {};
-  $scope.intervalSeconds = 20000;
-  $scope.loginUser = {};
+  $scope.model = {
+    senderID: 0,
+    financialClockList: [],
+    businessList: [],
+    callBackCount: 0,
+    filterStatus: '',
+    intervalObj: {},
+    intervalSeconds: 20000,
+    currentFinancialInfo: {staffName: '', staffPostName: '', staffPhoto: '', staffResume: '', clockStatusText: ''}
+  };
 
+  // region 页面初始化数据加载
   $scope.initProcess = function () {
-    let cookieValue = commonUtility.getCookie('loginUser');
-    let lobbyInfo = JSON.parse(cookieValue);
-    //判断是否是理财经理
-    if(lobbyInfo.userRole !== '3'){
-      commonUtility.delCookie('loginUser');
-      location.href = '/';
-      return false;
-    }
-    $scope.filterStatus = '';
-    $scope.loginUser = lobbyInfo;
+    $scope.checkIsLobby();
+    $scope.loadLobbyInfo();
     $scope.loadFinancialClock();
     $scope.loadBusinessData();
     $scope.startMonitor();
   };
 
+  $scope.checkIsLobby = function(){
+    let cookieValue = commonUtility.getCookie(commonUtility.COOKIE_LOGIN_USER);
+    let lobbyInfo = JSON.parse(cookieValue);
+
+    if(lobbyInfo.staffPostName !== '大堂经理'){
+      location.href = '/';
+      return false;
+    }
+  };
+
+  $scope.loadLobbyInfo = function (){
+    let cookieValue = commonUtility.getCookie(commonUtility.COOKIE_LOGIN_USER);
+    let financialInfo = JSON.parse(cookieValue);
+    $scope.model.senderID = financialInfo.staffID;
+  };
+
   $scope.loadFinancialClock = function(){
-    $http.get('/lobby/index/financialLatestClock').then(function successCallback(response) {
+    $http.get('/lobby/financialLatestClock').then(function successCallback(response) {
       if(response.data.err){
-        $scope.alertTitle = '系统提示';
-        $scope.alertMessage = '系统异常，请稍后再试。';
-        $('#dialog-message').modal('show');
+        bootbox.alert('获取业务消息失败，错误编码【' + response.data.code + '】，错误信息【' + response.data.msg + '】');
         return false;
       }
-      $scope.financialClockList = response.data.clockInfo;
+      if(response.data.financialClockList === null){
+        bootbox.alert('今天还没有理财经理签到。');
+        return false;
+      }
+      $scope.model.financialClockList = response.data.financialClockList;
     }, function errorCallback(response) {
-      $scope.alertTitle = '系统提示';
-      $scope.alertMessage = '网络异常，请稍后再试。';
-      $('#dialog-message').modal('show');
+      bootbox.alert('网络异常，请检查网络设置。');
     });
   };
 
   $scope.loadBusinessData = function(){
-    $http.get('/lobby/index/business?userID=' + $scope.loginUser.userID).then(function successCallback(response) {
+    $http.get('/lobby/business?senderID=' + $scope.model.senderID).then(function successCallback(response) {
       if(response.data.err){
-        $scope.alertTitle = '系统提示';
-        $scope.alertMessage = '系统异常，请稍后再试。';
-        $('#dialog-message').modal('show');
+        bootbox.alert('获取业务消息失败，错误编码【' + response.data.code + '】，错误信息【' + response.data.msg + '】');
+        return false;
       }
-      $scope.callBackCount = 0;
-      if($scope.filterStatus === ''){
-        angular.forEach(response.data.businessList,function(business,index){
-          if(business.businessStatus === '4'){
-            $scope.callBackCount++;
-          }
-        });
-        $scope.businessList = response.data.businessList;
+      $scope.model.callBackCount = 0;
+      $scope.model.businessList.splice(0, $scope.model.businessList.length);
+      if(response.data.businessList === null){
+        return false;
+      }
+      angular.forEach(response.data.businessList,function(business,index){
+        if(business.businessStatus === '4'){
+          $scope.model.callBackCount++;
+        }
+      });
+
+      if($scope.model.filterStatus === ''){
+        $scope.model.businessList = response.data.businessList;
       }else{
         let filterData = [];
-        $scope.businessList.splice(0, $scope.businessList.length);
         angular.forEach(response.data.businessList,function(business,index){
-          if(business.businessStatus === '4'){
-            $scope.callBackCount++;
-          }
-          if(business.businessStatus === $scope.filterStatus){
+          if(business.businessStatus === $scope.model.filterStatus){
             filterData.push(business);
           }
         });
-        $scope.businessList = filterData;
+        $scope.model.businessList = filterData;
       }
     }, function errorCallback(response) {
-      $scope.alertTitle = '系统提示';
-      $scope.alertMessage = '网络异常，请稍后再试。';
-      $('#dialog-message').modal('show');
+      bootbox.alert('网络异常，请检查网络设置。');
+    });
+  };
+  // endregion
+
+  // region 发送业务相关操作
+  $scope.chooseFinancial = function(currentFinancialInfo) {
+    //判断理财经理当前状态
+    if(currentFinancialInfo.clockStatus !== ClockStatusConstant.FREE){
+      bootbox.alert(currentFinancialInfo.staffName + '当前为非等待状态，不能发送业务请求。');
+      return false;
+    }
+
+    //判断该理财经理是否有业务待处理或者正在处理业务
+    $http.get('/lobby/waitBusiness?receiverID=' + currentFinancialInfo.staffID).then(function successCallback(response) {
+      if(response.data.err){
+        bootbox.alert('获取业务消息失败，错误编码【' + response.data.code + '】，错误信息【' + response.data.msg + '】');
+        return false;
+      }
+      if(response.data.waitBusiness !== null){
+        bootbox.alert(response.data.waitBusiness.senderName + '在' +
+            response.data.waitBusiness.sendTime + '给' +
+            currentFinancialInfo.staffName + '发送了一个业务，正在等待' +
+            currentFinancialInfo.staffName + '接收，等稍后。');
+        return false;
+      }
+
+      //在此判断理财经理当前状态，场景：理财经理接收业务，但大堂经理端尚未刷新理财经理状态
+      $http.get('/financial/clockInfo?staffID=' + currentFinancialInfo.staffID).then(function successCallback(response) {
+        if(response.data.err){
+          bootbox.alert('获取业务消息失败，错误编码【' + response.data.code + '】，错误信息【' + response.data.msg + '】');
+          return false;
+        }
+        if(response.data.clockInfo === null){
+          $scope.loadFinancialClock();
+          return false;
+        }
+        if(response.data.clockInfo.clockStatus !== ClockStatusConstant.FREE){
+          bootbox.alert(currentFinancialInfo.staffName + '当前为非等待状态，不能发送业务请求。');
+          return false;
+        }
+        $scope.model.currentFinancialInfo = currentFinancialInfo;
+        $('#dialog-send-business').modal('show');
+      }, function errorCallback(response) {
+        bootbox.alert('网络异常，请检查网络设置。');
+      });
+    }, function errorCallback(response) {
+      bootbox.alert('网络异常，请检查网络设置。');
     });
   };
 
+  $scope.onShowResume = function(){
+    $('#dialog-send-business').modal('hide');
+    $('#dialog-resume').modal('show');
+  };
+
+  $scope.onSend = function(){
+    $http.post('/lobby/sendBusiness', {
+      senderID:  commonUtility.getLoginUserID(),
+      receiverID: $scope.model.currentFinancialInfo.staffID,
+      loginUser: commonUtility.getLoginUser()
+    }).then(function successCallback(response) {
+      if(response.data.err){
+        $('#dialog-send-business').modal('hide');
+        bootbox.alert('获取业务消息失败，错误编码【' + response.data.code + '】，错误信息【' + response.data.msg + '】');
+        return false;
+      }
+      layer.msg('业务请求已发送，请稍后。');
+      $('#dialog-send-business').modal('hide');
+      $scope.filterStatus = '';
+      $scope.loadBusinessData();
+    }, function errorCallback(response) {
+      bootbox.alert('网络异常，请检查网络设置。');
+      $('#dialog-send-business').modal('hide');
+    });
+  };
+  // endregion
+
+  // region 过滤条件
+  $scope.onFilter = function(status){
+    $scope.model.filterStatus = status;
+    $scope.loadBusinessData();
+  };
+  // endregion
+
+  // region 业务办理相关操作
+  $scope.onLookBack = function(callBackMsg){
+    bootbox.alert(callBackMsg);
+  };
+
+  $scope.onSendHurry = function(businessID, senderID, receiverID){
+    //发送催促消息
+    $http.post('/lobby/hurryUp', {
+      businessID:  businessID,
+      senderID: senderID,
+      receiverID: receiverID,
+      loginUser: commonUtility.getLoginUser()
+    }).then(function successCallback(response) {
+      if(response.data.err){
+        bootbox.alert('获取业务消息失败，错误编码【' + response.data.code + '】，错误信息【' + response.data.msg + '】');
+        return false;
+      }
+      layer.msg('催促提醒已发送。');
+    }, function errorCallback(response) {
+      bootbox.alert('网络异常，请检查网络设置。');
+    });
+  };
+
+  $scope.onComplete = function(businessID){
+    bootbox.confirm({
+      message: '确认该笔业务已完结',
+      buttons: {
+        confirm: {
+          label: '完结',
+          className: 'btn-success'
+        },
+        cancel: {
+          label: '取消',
+          className: 'btn-default'
+        }
+      },
+      callback: function (result) {
+        if(result) {
+          $http.put('/lobby/completeBusiness', {
+            businessID: businessID,
+            loginUser: commonUtility.getLoginUser()
+          }).then(function successCallback(response){
+            if(response.data.err){
+              bootbox.alert('获取业务消息失败，错误编码【' + response.data.code + '】，错误信息【' + response.data.msg + '】');
+              return false;
+            }
+            $scope.filterStatus = '';
+            $scope.loadBusinessData();
+          }, function errorCallback(response){
+            bootbox.alert('网络异常，请检查网络设置。');
+          });
+        }
+      }
+    });
+  };
+  // endregion
+
+  // region 公共方法
   $scope.startMonitor = function(){
-    this.intervalObj = setInterval($scope.monitor, $scope.intervalSeconds);
+    $scope.model.intervalObj = setInterval($scope.monitor, $scope.model.intervalSeconds);
   };
 
   $scope.monitor = function(){
@@ -93,171 +233,14 @@ app.controller('myCtrl', function ($scope, $http) {
     $scope.loadBusinessData();
   };
 
-  $scope.onFilter = function(status){
-    $scope.filterStatus = status;
-    $scope.loadBusinessData();
-  };
+  // endregion
 
-  $scope.onHurry = function(sendUserID, receiveUserID, businessID){
-    //发送催促消息
-    $http.post('/lobby/index/hurryUp', {
-      sendUserID: sendUserID,
-      receiveUserID: receiveUserID,
-      businessID:  businessID,
-      loginUser: $scope.loginUser.userID
-    }).then(function successCallback(response) {
-      if(response.data.err){
-        $scope.alertTitle = '系统提示';
-        $scope.alertMessage = '系统异常，无法发送催促提醒，请稍后再试。';
-        $('#dialog-message').modal('show');
-        return false;
-      }
-      $scope.alertTitle = '系统提示';
-      $scope.alertMessage = '催促提醒已发送。';
-      $('#dialog-message').modal('show');
-    }, function errorCallback(response) {
-      $scope.alertTitle = '系统提示';
-      $scope.alertMessage = '网络异常，请稍后再试。';
-      $('#dialog-message').modal('show');
-    });
-  };
+  $('#signOut').click(function () {
+    clearInterval($scope.model.intervalObj);
+    commonUtility.delCookie(commonUtility.COOKIE_LOGIN_USER);
+    commonUtility.delCookie(commonUtility.COOKIE_LOGIN_USERID);
+    location.href = '/';
+  });
 
-  $scope.onGoBack = function(callBackID, callBackMsg, otherCallBackMsg){
-    $scope.alertTitle = '回呼信息';
-    if(callBackID !== 7){
-      $scope.alertMessage = callBackMsg;
-    }else{
-      $scope.alertMessage = otherCallBackMsg;
-    }
-
-    $('#dialog-message').modal('show');
-  };
-
-  $scope.onComplete = function(businessID){
-    $scope.currentBusinessID = businessID;
-    $scope.alertConfirm('信息确认', '确认该笔业务已完结？', 'done');
-  };
-
-  $scope.onConfirm = function(){
-    $scope.changeBusinessComplete();
-    $('#dialog-confirm').modal('hide');
-  };
-
-  $scope.onLogout = function(){
-    $http.post('/financial/index', {
-      userID:  $scope.loginUser.userID,
-      clockStatus: '4',
-      loginUser: $scope.loginUser.userID
-    }).then(function successCallback(response) {
-      if(response.data.err){
-        $scope.alertMessage = '系统异常，请稍后再试。';
-        $('#dialog-message').modal('show');
-        return false;
-      }
-      common.delCookie('loginUser');
-      clearInterval($scope.intervalObj);
-      location.href = '/';
-    }, function errorCallback(response) {
-      $scope.alertMessage = '网络异常，请稍后再试。';
-      $('#dialog-message').modal('show');
-    });
-  };
-
-  $scope.changeBusinessComplete = function(){
-    $http.put('/common/changeBusinessComplete', {
-      businessID: $scope.currentBusinessID,
-      businessStatus: '3',
-      loginUser: $scope.loginUser.userID
-    }).then(function successCallback(response){
-      if(response.data.err){
-        $scope.alertTitle = '系统提示';
-        $scope.alertMessage = '系统异常，请稍后再试。';
-        $('#dialog-message').modal('show');
-        return false;
-      }
-      $scope.filterStatus = '';
-      $scope.loadBusinessData();
-    }, function errorCallback(response){
-      $scope.alertTitle = '系统提示';
-      $scope.alertMessage = '网络异常，请稍后再试。';
-      $('#dialog-message').modal('show');
-    });
-  };
-
-  $scope.onShowResume = function(receiveUser, userName, clockStatus, resume){
-    $scope.currentReceiveUserID = receiveUser;
-    $scope.currentReceiveUserName = userName;
-    $scope.currentClockStatus = clockStatus;
-    $scope.currentResume = resume;
-
-    //判断当前打卡状态
-    if($scope.currentClockStatus !== '1'){
-      $scope.alertTitle = '系统提示';
-      $scope.alertMessage = '该理财经理当前为非等待状态，不能发送业务请求。';
-      $('#dialog-message').modal('show');
-      return false;
-    }
-
-    //判断当前是否在等待接单
-    $http.get('/lobby/index/business/wait?userID=' + $scope.currentReceiveUserID).then(function successCallback(response) {
-      if(response.data.err){
-        $scope.alertTitle = '系统提示';
-        $scope.alertMessage = '系统异常，请稍后再试。';
-        $('#dialog-message').modal('show');
-        return false;
-      }
-      if(response.data.result){
-        $scope.alertTitle = '系统提示';
-        $scope.alertMessage = '有一笔业务正在等待该理财经理回复，不能发送业务请求。';
-        $('#dialog-message').modal('show');
-        return false;
-      }
-      $('#dialog-send-business').modal('show');
-    }, function errorCallback(response) {
-      $scope.alertTitle = '系统提示';
-      $scope.alertMessage = '网络异常，请稍后再试。';
-      $('#dialog-message').modal('show');
-    });
-  };
-
-  $scope.onResume = function(){
-    $('#dialog-resume').modal('show');
-  };
-
-  $scope.onSend = function(){
-    //发送接待消息
-    $http.post('/lobby/index/business', {
-      sendUserID:  $scope.loginUser.userID,
-      receiveUserID: $scope.currentReceiveUserID,
-      loginUser: $scope.loginUser.userID
-    }).then(function successCallback(response) {
-      if(response.data.err){
-        $scope.alertTitle = '系统提示';
-        $scope.alertMessage = '系统异常，请稍后再试。';
-        $('#dialog-send-business').modal('hide');
-        $('#dialog-message').modal('show');
-        return false;
-      }
-      $scope.alertTitle = '系统提示';
-      $scope.alertMessage = '业务请求已发送，请稍后。';
-      $('#dialog-send-business').modal('hide');
-      $('#dialog-message').modal('show');
-      $scope.filterStatus = '';
-      $scope.loadBusinessData();
-    }, function errorCallback(response) {
-      $scope.alertTitle = '系统提示';
-      $scope.alertMessage = '网络异常，请稍后再试。';
-      $('#dialog-send-business').modal('hide');
-      $('#dialog-message').modal('show');
-    });
-  };
-
-  $scope.alertConfirm = function(title, message, confirmType){
-    this.modalTitle = title;
-    this.confirmMessage = message;
-    this.confirmType = confirmType;
-    $('#dialog-confirm').modal('show');
-  };
-
-  //$scope.initProcess();
+  $scope.initProcess();
 });

@@ -14,6 +14,11 @@ commonUtility.getLoginUser = function () {
   return cookie !== null ? JSON.parse(cookie).account : 'unknown';
 };
 
+commonUtility.getLoginUserID = function () {
+  let cookie = this.getCookie(this.COOKIE_LOGIN_USER);
+  return cookie !== null ? JSON.parse(cookie).staffID : '0';
+};
+
 commonUtility.setCookie = function (name,value) {
   let days = 30;
   let exp = new Date();

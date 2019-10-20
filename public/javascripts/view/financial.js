@@ -34,12 +34,23 @@ app.controller('myCtrl', function($scope, $http) {
 
   // region 页面初始化数据加载
   $scope.initProcess = function () {
+    $scope.checkIsFinancial();
     $scope.loadFinancialInfo();
     $scope.loadCurrentStatus();
     $scope.loadCallBackData();
     $scope.loadBusinessData();
     $scope.receiveCurrentNewBusiness();
     $scope.receiveHurryUp();
+  };
+
+  $scope.checkIsFinancial = function(){
+    let cookieValue = commonUtility.getCookie(commonUtility.COOKIE_LOGIN_USER);
+    let lobbyInfo = JSON.parse(cookieValue);
+
+    if(lobbyInfo.staffPostName === '大堂经理'){
+      location.href = '/';
+      return false;
+    }
   };
 
   $scope.loadFinancialInfo = function(){
@@ -84,7 +95,7 @@ app.controller('myCtrl', function($scope, $http) {
   };
 
   $scope.loadBusinessData = function(userInfo){
-    $http.get('/financial/business?senderID=' + $scope.model.staffID).then(function successCallback(response) {
+    $http.get('/financial/business?receiverID=' + $scope.model.staffID).then(function successCallback(response) {
       if(response.data.err){
         bootbox.alert('获取业务消息失败，错误编码【' + response.data.code + '】，错误信息【' + response.data.msg + '】');
         return false;

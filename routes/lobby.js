@@ -9,64 +9,60 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/financialLatestClock', function(req, res, next) {
-  let service = new commonService.commonInvoke('financialLatestClock');
-  service.get('', function (result) {
+  let service = new commonService.commonInvoke('clockedFinancial');
+  let bankCode = req.cookies.bwbBankCode;
+  let branchCode = req.cookies.bwbBranchCode;
+  let parameter = bankCode + '/' + branchCode;
+
+  service.get(parameter, function (result) {
     if(result.err || !result.content.result){
       res.json({
         err: true,
-        msg: result.msg
+        code: result.code === '0' ? result.content.responseCode : '0',
+        msg: result.code === '0' ? result.content.responseMessage : result.msg
       });
     }else{
       res.json({
         err: !result.content.result,
+        code: result.content.responseCode,
         msg: result.content.responseMessage,
-        clockInfo: result.content.responseData
+        financialClockList: result.content.responseData
       });
     }
   });
 });
 
-router.get('/business', function(req, res, next) {
-  let service = new commonService.commonInvoke('sendBusiness');
-  service.get(req.query.userID, function (result) {
+router.get('/waitBusiness', function(req, res, next) {
+  let service = new commonService.commonInvoke('newBusiness');
+  let bankCode = req.cookies.bwbBankCode;
+  let branchCode = req.cookies.bwbBranchCode;
+  let receiverID = req.query.receiverID;
+  let parameter = bankCode + '/' + branchCode + '/' + receiverID;
+  service.get(parameter, function (result) {
     if(result.err || !result.content.result){
       res.json({
         err: true,
-        msg: result.msg
+        code: result.code === '0' ? result.content.responseCode : '0',
+        msg: result.code === '0' ? result.content.responseMessage : result.msg
       });
     }else{
       res.json({
         err: !result.content.result,
+        code: result.content.responseCode,
         msg: result.content.responseMessage,
-        businessList: result.content.responseData
+        waitBusiness: result.content.responseData
       });
     }
   });
 });
 
-router.get('/business/wait', function(req, res, next) {
-  let service = new commonService.commonInvoke('hasWaitBusiness');
-  service.get(req.query.userID, function (result) {
-    if(result.err || !result.content.result){
-      res.json({
-        err: true,
-        msg: result.msg
-      });
-    }else{
-      res.json({
-        err: !result.content.result,
-        msg: result.content.responseMessage,
-        result: result.content.responseData
-      });
-    }
-  });
-});
-
-router.post('/business', function (req, res, next) {
+router.post('/sendBusiness', function (req, res, next) {
   let service = new commonService.commonInvoke('sendBusiness');
   let data = {
-    sendUserID: req.body.sendUserID,
-    receiveUserID: req.body.receiveUserID,
+    bankCode: req.cookies.bwbBankCode,
+    branchCode: req.cookies.bwbBranchCode,
+    senderID: req.body.senderID,
+    receiverID: req.body.receiverID,
     loginUser: req.body.loginUser
   };
 
@@ -74,12 +70,39 @@ router.post('/business', function (req, res, next) {
     if(result.err){
       res.json({
         err: true,
-        msg: result.msg
+        code: result.code === '0' ? result.content.responseCode : '0',
+        msg: result.code === '0' ? result.content.responseMessage : result.msg
       });
     }else{
       res.json({
         err: !result.content.result,
-        msg: result.content.responseMessage
+        code: result.content.responseCode,
+        msg: result.content.responseMessage,
+      });
+    }
+  });
+});
+
+router.get('/business', function(req, res, next) {
+  let service = new commonService.commonInvoke('lobbyBusiness');
+  let bankCode = req.cookies.bwbBankCode;
+  let branchCode = req.cookies.bwbBranchCode;
+  let senderID = req.query.senderID;
+  let parameter = '/' + bankCode + '/' + branchCode + '/' + senderID;
+
+  service.get(parameter, function (result) {
+    if(result.err || !result.content.result){
+      res.json({
+        err: true,
+        code: result.code === '0' ? result.content.responseCode : '0',
+        msg: result.code === '0' ? result.content.responseMessage : result.msg
+      });
+    }else{
+      res.json({
+        err: !result.content.result,
+        code: result.content.responseCode,
+        msg: result.content.responseMessage,
+        businessList: result.content.responseData
       });
     }
   });
@@ -88,9 +111,11 @@ router.post('/business', function (req, res, next) {
 router.post('/hurryUp', function (req, res, next) {
   let service = new commonService.commonInvoke('hurryUp');
   let data = {
-    sendUserID: req.body.sendUserID,
-    receiveUserID: req.body.receiveUserID,
+    bankCode: req.cookies.bwbBankCode,
+    branchCode: req.cookies.bwbBranchCode,
     businessID: req.body.businessID,
+    senderID: req.body.senderID,
+    receiverID: req.body.receiverID,
     loginUser: req.body.loginUser
   };
 
@@ -98,50 +123,42 @@ router.post('/hurryUp', function (req, res, next) {
     if(result.err){
       res.json({
         err: true,
-        msg: result.msg
+        code: result.code === '0' ? result.content.responseCode : '0',
+        msg: result.code === '0' ? result.content.responseMessage : result.msg
       });
     }else{
       res.json({
         err: !result.content.result,
-        msg: result.content.responseMessage
+        code: result.content.responseCode,
+        msg: result.content.responseMessage,
       });
     }
   });
 });
 
-router.post('/sendNoticeSms', function (req, res, next) {
-  let sender = req.body.sender;
-  let sendTime = sd.format(new Date(), 'YYYY-MM-DD HH:mm');
-  let cellphone = req.body.cellphone;
-  let loginUser = req.body.loginUser;
+router.put('/completeBusiness', function (req, res, next) {
+  let service = new commonService.commonInvoke('completeBusiness');
+  let data = {
+    bankCode: req.cookies.bwbBankCode,
+    branchCode: req.cookies.bwbBranchCode,
+    businessID: req.body.businessID,
+    loginUser: req.body.loginUser
+  };
 
-  let service = new commonService.commonInvoke('thirdParty');
-  smsUtils.sendNotice(cellphone, sender, sendTime, function (isSend, reqContent, resContent, reqText) {
-    let data = {
-      thirdParty: 'aliSms',
-      requestContent: reqContent,
-      responseContent: resContent,
-      requestResult: isSend ? 'T' : 'F',
-      responseText: reqText,
-      cellphone: cellphone,
-      loginUser: loginUser
-    };
-    service.add(data, function (result) {
-      if(result.err){
-        res.json({
-          err: true,
-          code: result.code,
-          msg: result.msg
-        });
-      }else{
-        res.json({
-          err: !isSend,
-          code: result.content.responseCode,
-          msg: result.content.responseMessage,
-          data: result.content
-        });
-      }
-    });
+  service.change(data, function (result) {
+    if(result.err){
+      res.json({
+        err: true,
+        code: result.code === '0' ? result.content.responseCode : '0',
+        msg: result.code === '0' ? result.content.responseMessage : result.msg
+      });
+    }else{
+      res.json({
+        err: !result.content.result,
+        code: result.content.responseCode,
+        msg: result.content.responseMessage
+      });
+    }
   });
 });
 

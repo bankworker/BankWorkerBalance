@@ -16,11 +16,13 @@ router.get('/clockInfo', function(req, res, next) {
     if(result.err || !result.content.result){
       res.json({
         err: true,
-        msg: result.msg
+        code: result.code === '0' ? result.content.responseCode : '0',
+        msg: result.code === '0' ? result.content.responseMessage : result.msg
       });
     }else{
       res.json({
         err: !result.content.result,
+        code: result.content.responseCode,
         msg: result.content.responseMessage,
         clockInfo: result.content.responseData
       });
@@ -42,11 +44,13 @@ router.post('/clockInfo', function (req, res, next) {
     if(result.err){
       res.json({
         err: true,
-        msg: result.msg
+        code: result.code === '0' ? result.content.responseCode : '0',
+        msg: result.code === '0' ? result.content.responseMessage : result.msg
       });
     }else{
       res.json({
         err: !result.content.result,
+        code: result.content.responseCode,
         msg: result.content.responseMessage
       });
     }
@@ -54,11 +58,11 @@ router.post('/clockInfo', function (req, res, next) {
 });
 
 router.get('/business', function(req, res, next) {
-  let service = new commonService.commonInvoke('sendBusiness');
+  let service = new commonService.commonInvoke('financialBusiness');
   let bankCode = req.cookies.bwbBankCode;
   let branchCode = req.cookies.bwbBranchCode;
-  let senderID = req.query.senderID;
-  let parameter = '/' + bankCode + '/' + branchCode + '/' + senderID;
+  let receiverID = req.query.receiverID;
+  let parameter = '/' + bankCode + '/' + branchCode + '/' + receiverID;
 
   service.get(parameter, function (result) {
     if(result.err || !result.content.result){

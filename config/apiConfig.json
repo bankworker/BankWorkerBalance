@@ -9,13 +9,16 @@
       "branch": "/api/bank/branch",
       "staffPost": "/api/bank/branch/staffPost",
       "clockInfo": "/api/balance/clockInfo",
-      "sendBusiness": "/api/balance/businessFlow/receive",
+      "financialBusiness": "/api/balance/businessFlow/receive",
       "newBusiness": "/api/balance/businessFlow/new",
       "changeBusinessStatus": "/api/balance/businessFlow/changeBusinessStatus",
       "completeBusiness": "/api/balance/businessFlow/completeBusiness",
       "callBack": "/api/bank/branch/callback",
       "sendCallBack": "/api/balance/businessFlow/addCallBack",
-      "hurryUp": "/api/balance/hurryUp"
+      "hurryUp": "/api/balance/hurryUp",
+      "clockedFinancial": "/api/balance/clockInfo",
+      "sendBusiness": "/api/balance/businessFlow",
+      "lobbyBusiness": "/api/balance/businessFlow/send"
     }
   }
 }
