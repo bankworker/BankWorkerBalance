@@ -42,3 +42,28 @@ commonUtility.delCookie = function (name) {
   if(cookieName !== null)
     document.cookie= name + "=" + cookieName + ";expires=" + exp.toGMTString();
 };
+
+commonUtility.loadBranchSetting = function () {
+  $.ajax({
+    url: '/common/branchSetting',
+    type: 'get',
+    success: function(res){
+      if(res.err){
+        layer.msg(res.msg);
+        return false;
+      }
+      if(res.branchInfo === null){
+        return false;
+      }
+      $('.bank-logo img').attr('src', res.branchInfo.bankLogo);
+      $('.branch-logo img').attr('src', res.branchInfo.branchLogo);
+      if(res.branchInfo.branchBackImage !== ''){
+        $('.main-container').css('background', 'url(' + res.branchInfo.branchBackImage + ') repeat-y center center fixed')
+            .css('background-size', '100%');
+      }
+    },
+    error: function(XMLHttpRequest){
+      bootbox.alert('无法连接远程服务器，请检查网络状态。');
+    }
+  });
+};

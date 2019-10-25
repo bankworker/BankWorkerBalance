@@ -11,7 +11,8 @@
   <script src="/javascripts/angular-1.7.8/angular.min.js"></script>
   <script src="/javascripts/bootbox/bootbox.min.js"></script>
   <script src="/javascripts/layer/layer.js"></script>
-  <script src="/javascripts/view/common.js"></script>
+  <script src="/javascripts/view/commonUtility.js"></script>
+  <script src="/javascripts/view/commonEvent.js"></script>
   <script src="/javascripts/view/constants.js"></script>
   <title>理财业务分流-{{title}}</title>
 </head>
@@ -21,23 +22,68 @@
     <div class="col-sm-2 no-padding full-height">
       <div class="space-30"></div>
       <div class="bank-logo">
-        <img src="http://111.20.85.6:3003/images/logo_head.jpg" class="img-responsive">
+        <img src="" class="img-responsive">
       </div>
       <div class="space-30"></div>
       <div class="branch-logo">
-        <img src="http://111.20.85.6:3003/images/logo_branch.jpg" class="img-responsive">
+        <img src="" class="img-responsive">
       </div>
       <div class="options-bar">
-        <ul>
-          <li id="signOut">退出</li>
-        </ul>
+        <div class="dropup">
+          <img src="" class="img-responsive img-circle" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <li><a href="#" data-toggle="modal" data-target="#dialog-changePassword">修改密码</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#" id="btnSignOut">退出</a></li>
+            </ul>
+        </div>
       </div>
     </div>
     <div class="col-sm-10 no-padding full-height">
       {{{body}}}
     </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="dialog-changePassword">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">修改密码</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal" name="myForm" novalidate>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">原始密码</label>
+                <div class="col-sm-10">
+                  <input type="hidden" id="hidden-account">
+                  <input type="hidden" id="hidden-postID">
+                  <input type="password" class="form-control" id="oldPassword" maxlength="25" placeholder="请输入原始密码">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">新密码</label>
+                <div class="col-sm-10">
+                  <input type="password" class="form-control" id="newPassword" maxlength="25" placeholder="请输入新密码">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">确认密码</label>
+                <div class="col-sm-10">
+                  <input type="password" class="form-control" id="confirmPassword" maxlength="25" placeholder="请输入确认密码">
+                  <p style="color: red; display: none" id="error-message-confirmPassword">确认密码与新密码不一致</p>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-primary" id="btnChangePassword">修改</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
-
 </body>
 </html>

@@ -35,6 +35,7 @@ app.controller('myCtrl', function($scope, $http) {
   // region 页面初始化数据加载
   $scope.initProcess = function () {
     $scope.checkIsFinancial();
+    $scope.loadBranchSetting();
     $scope.loadFinancialInfo();
     $scope.loadCurrentStatus();
     $scope.loadCallBackData();
@@ -53,12 +54,19 @@ app.controller('myCtrl', function($scope, $http) {
     }
   };
 
+  $scope.loadBranchSetting = function(){
+    commonUtility.loadBranchSetting();
+  };
+
   $scope.loadFinancialInfo = function(){
     let cookieValue = commonUtility.getCookie(commonUtility.COOKIE_LOGIN_USER);
     let financialInfo = JSON.parse(cookieValue);
     $scope.model.staffPhotoUrl = financialInfo.staffPhotoUrl;
     $scope.model.staffID = financialInfo.staffID;
     $scope.model.staffName = financialInfo.staffName;
+    $('.options-bar img').attr('src', financialInfo.staffPhotoUrl);
+    $('#hidden-account').val(financialInfo.account);
+    $('#hidden-postID').val(financialInfo.staffPostID);
   };
 
   $scope.loadCurrentStatus = function(){
@@ -441,12 +449,6 @@ app.controller('myCtrl', function($scope, $http) {
     $scope.model.dataList.splice(0, $scope.model.dataList.length);
   };
   // endregion
-
-  $('#signOut').click(function () {
-    commonUtility.delCookie(commonUtility.COOKIE_LOGIN_USER);
-    commonUtility.delCookie(commonUtility.COOKIE_LOGIN_USERID);
-    location.href = '/';
-  });
 
   $scope.initProcess();
 });

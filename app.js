@@ -21,13 +21,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use(function (req, res, next) {
-//   let url = req.originalUrl;
-//   if (url !== '/' && url.indexOf('/login') < 0 && req.cookies['bwmUser'] === undefined) {
-//     return res.redirect("/");
-//   }
-//   next();
-// });
+app.use(function (req, res, next) {
+  let url = req.originalUrl;
+  if (url !== '/' && url.indexOf('/login') < 0 && req.cookies['bwbUser'] === undefined) {
+    return res.redirect("/");
+  }
+  next();
+});
 
 app.use('/', loginRouter);
 app.use('/login', loginRouter);

@@ -18,7 +18,8 @@
       "hurryUp": "/api/balance/hurryUp",
       "clockedFinancial": "/api/balance/clockInfo",
       "sendBusiness": "/api/balance/businessFlow",
-      "lobbyBusiness": "/api/balance/businessFlow/send"
+      "lobbyBusiness": "/api/balance/businessFlow/send",
+      "changePassword": "/api/system/account/changePassword"
     }
   }
 }

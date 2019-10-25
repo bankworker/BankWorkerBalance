@@ -14,6 +14,7 @@ app.controller('myCtrl', function ($scope, $http) {
   // region 页面初始化数据加载
   $scope.initProcess = function () {
     $scope.checkIsLobby();
+    $scope.loadBranchSetting();
     $scope.loadLobbyInfo();
     $scope.loadFinancialClock();
     $scope.loadBusinessData();
@@ -30,10 +31,17 @@ app.controller('myCtrl', function ($scope, $http) {
     }
   };
 
+  $scope.loadBranchSetting = function(){
+    commonUtility.loadBranchSetting();
+  };
+
   $scope.loadLobbyInfo = function (){
     let cookieValue = commonUtility.getCookie(commonUtility.COOKIE_LOGIN_USER);
-    let financialInfo = JSON.parse(cookieValue);
-    $scope.model.senderID = financialInfo.staffID;
+    let lobbyInfo = JSON.parse(cookieValue);
+    $scope.model.senderID = lobbyInfo.staffID;
+    $('.options-bar img').attr('src', lobbyInfo.staffPhotoUrl);
+    $('#hidden-account').val(lobbyInfo.account);
+    $('#hidden-postID').val(lobbyInfo.staffPostID);
   };
 
   $scope.loadFinancialClock = function(){
@@ -43,7 +51,7 @@ app.controller('myCtrl', function ($scope, $http) {
         return false;
       }
       if(response.data.financialClockList === null){
-        bootbox.alert('今天还没有理财经理签到。');
+        // bootbox.alert('今天还没有理财经理签到。');
         return false;
       }
       $scope.model.financialClockList = response.data.financialClockList;
@@ -234,13 +242,6 @@ app.controller('myCtrl', function ($scope, $http) {
   };
 
   // endregion
-
-  $('#signOut').click(function () {
-    clearInterval($scope.model.intervalObj);
-    commonUtility.delCookie(commonUtility.COOKIE_LOGIN_USER);
-    commonUtility.delCookie(commonUtility.COOKIE_LOGIN_USERID);
-    location.href = '/';
-  });
 
   $scope.initProcess();
 });
